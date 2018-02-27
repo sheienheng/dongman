@@ -31,14 +31,26 @@
       <nav style="background-color: #ffad52;width: 100%;height: 50px;margin-bottom: 20px">
         <ul class="navList">
           <li v-for="(list,index) in navList">
-            <router-link to="/" v-if="index!=num2">
+            <router-link :to="navListPath[index].path" v-if="index!=num2">
               {{list.list}}
               <i class="fa fa-sort-desc" v-if="index==0"></i>
             </router-link>
-            <router-link to="/"  v-if="index==num2" class="activeColor">
+            <router-link :to="navListPath[index].path"  v-if="index==num2" class="activeColor">
               {{list.list}}
             </router-link>
-            <ul class="listChildren" v-if="index==0">
+            <ul class="listChildren" v-if="index==0&&num2==1">
+              <li v-for="(p,index2) in pathMes">
+                <router-link :to="path[index2]" v-if="index2!=num">
+                  <span>{{p.Mes}}</span>
+                  <i class="fa fa-angle-right"></i>
+                </router-link>
+                <router-link :to="path[index2]" v-if="index2==num" class="hoverColor">
+                  <span>{{p.Mes}}</span>
+                  <i class="fa fa-angle-right"></i>
+                </router-link>
+              </li>
+            </ul>
+            <ul class="listChildren showHide" v-if="index==0&&num2!=1">
               <li v-for="(p,index2) in pathMes">
                 <router-link :to="path[index2]" v-if="index2!=num">
                   <span>{{p.Mes}}</span>
@@ -71,6 +83,12 @@
           {list:'限时特价'},
           {list:'新品预售'},
         ],
+        navListPath:[
+          {path:''},
+          {path:'/'},
+          {path:'/sale'},
+          {path:'/'},
+        ],
         path:[
           {path:'/classity/tenyuan',query: {a: 0}},
           {path:'/classity/prototype',query: {a: 1}},
@@ -92,6 +110,15 @@
     computed:{
       ...mapState(['nickName','cartCount'])
     },
+    mounted(){
+      this.ss()
+    },
+    methods:{
+      ss:function(){
+
+      }
+
+    }
   }
 </script>
 <style scoped>
@@ -195,6 +222,9 @@
   nav .navList>li:first-child{
     width: 24%;
   }
+  nav .navList>li:first-child:hover .showHide{
+    display: block;
+  }
   nav>.navList>li .listChildren{
     width: 100%;
     z-index: 999;
@@ -202,6 +232,9 @@
     background-color: #fffbea;
     padding-bottom: 70px;
     top:50px;
+  }
+  .showHide{
+    display: none;
   }
   nav>.navList li .listChildren li a{
     width: 100%;

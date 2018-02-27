@@ -32,14 +32,12 @@
       </div>
       <!--<button @click="add()">ddsd</button>-->
       <!--<button @click="jian()">dvfdgfd</button>-->
-      <Footer></Footer>
     </div>
 </template>
 
 <script>
   import '../assets/css/home.css'
   import Header from '../components/header'
-  import Footer from '../components/footer'
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
   import 'swiper/dist/js/swiper.min.js';
@@ -89,7 +87,6 @@
       },
       components:{
           Header:Header,
-          Footer:Footer
       },
       methods:{
         add(){

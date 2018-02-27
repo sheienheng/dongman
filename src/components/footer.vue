@@ -1,7 +1,7 @@
 <template>
     <div>
       <div id="footer">
-        这是底部
+        动漫商城欢迎你
       </div>
 
     </div>
@@ -18,5 +18,9 @@
   width: 100%;
   background-color: #eeeeee;
   height: 60px;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  line-height: 60px;
 }
 </style>

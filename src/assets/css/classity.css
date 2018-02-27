@@ -1,0 +1,110 @@
+.clearfix:after{
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden
+}
+.classityMore{
+  /*background-color: #f5f7fa;*/
+  /*height: 100%;*/
+  /*position: relative;*/
+  /*padding-bottom: 60px;*/
+}
+.classityMore .row{
+  margin-bottom: 30px;
+}
+.classityMore .row .main>div{
+  margin-top: 400px;
+  width: 100%;
+  height: 70px;
+  background-color: #fff;
+  padding: 10px;
+  line-height: 50px;
+  font-size: 18px;
+}
+.classityMore .row .aside .title{
+  background-color: #fff;
+  border-radius: 5px;
+}
+.classityMore .row .aside .title h2{
+  color: #434a45;
+  font-size: 24px;
+  line-height: 50px;
+  padding-left:10px;
+  border-bottom: 1px solid #dcdcdc;
+}
+.classityMore .row .aside .title>div{
+  padding: 20px 10px;
+  border-bottom: 1px solid #dcdcdc;
+}
+.classityMore .row .aside .title>div>span{
+  border:1px solid #dcdcdc;
+  padding: 5px 10px 5px 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.classityMore .row .aside .title>div>span.sortactive{
+  background-color:#aab2bd ;
+  color: #fff;
+}
+.classityMore .row .aside .contentPro{
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 20px;
+}
+.classityMore .row .aside .contentPro li{
+  width: 33.3%;
+  height: 380px;
+  float: left;
+  border-bottom: 1px solid #dcdcdc;
+  border-right: 1px solid #dcdcdc;
+}
+.classityMore .row .aside .contentPro li .proMes{
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border: 5px solid rgba(0,0,0,0);
+  position: relative;
+}
+.classityMore .row .aside .contentPro li .proMes>span{
+   position: absolute;
+   width: 50px;
+   height: 40px;
+   text-align: center;
+   line-height: 30px;
+   top: 0px;
+   color: #fff;
+   font-size: 14px;
+  background-image: url("../../../static/img/icon-saleoff.png");
+   background-position: 0px 0;
+ }
+.classityMore .row .aside .contentPro li .proMes img{
+  width: 100%;
+}
+.classityMore .row .aside .contentPro li:hover .proMes{
+  border: 5px solid rgba(0,0,0,0.1);
+  padding: 14px;
+}
+
+.classityMore .row .aside .contentPro li .proMes>div{
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between
+}
+.classityMore .row .aside .contentPro li .proMes>div i{
+  margin-right: 5px;
+  color: red;
+}
+.classityMore .row .aside .contentPro li .proMes>div .cart:hover{
+  cursor: pointer;
+  color: red;
+}
+.classityMore .row .aside .contentPro li .proMes p{
+  font-size: 15px;
+  padding:10px 10px ;
+  text-align: center;
+  margin:10px 0;
+
+}

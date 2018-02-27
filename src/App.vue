@@ -1,19 +1,25 @@
 <template>
-  <div id="app" style="height: 100vh;">
-    <router-view id="router-view" style="height: 100%;"></router-view>
+  <div id="app" style="min-height: 100vh;background-color: #f5f7fa;padding-bottom: 60px">
+    <router-view id="router-view"></router-view>
     <div class="scrollTop" @click="scrollTop()" v-if="toTop">
       <i class="fa fa-chevron-up" aria-hidden="true"></i>
     </div>
+    <Footer></Footer>
   </div>
+
 </template>
 
 <script>
+  import Footer from './components/footer'
 export default {
   name: 'App',
   data(){
     return{
       toTop:false
     }
+  },
+  components:{
+    Footer:Footer
   },
   mounted(){
     window.addEventListener('scroll',this.handleScroll)
@@ -65,6 +71,9 @@ export default {
   a{
     text-decoration: none;
     color: inherit;
+  }
+  #app{
+    position: relative;
   }
   .scrollTop{
     width: 50px;

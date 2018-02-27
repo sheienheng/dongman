@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/view/home'
+import Sale from '@/view/sale'
 import Tenyuan from '@/view/classity/tenyuan'
 import Clothes from '@/view/classity/clothes'
 import Life from '@/view/classity/life'
@@ -29,6 +30,10 @@ export default new Router({
     {
       path:'/home',
       component: Home
+    },
+    {
+      path:'/sale',
+      component: Sale
     },
     {
       path:'/classity/tenyuan',

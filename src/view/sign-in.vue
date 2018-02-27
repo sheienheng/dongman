@@ -3,8 +3,7 @@
         <!--logo-->
         <div class="logo">
             <router-link to="/">
-                <!--<img src="~assets/img/logo.png">-->
-              dd
+                <img src="../../static/img/gua2.jpg">
             </router-link>
         </div>
         <!--登录表单-->
