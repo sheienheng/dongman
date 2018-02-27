@@ -1,0 +1,33 @@
+.content{
+  background-image: url(../../../static/img/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 105% auto;
+}
+.content .contentMes .special{
+  margin: 20px 0 30px 0;
+  background-color: #fff;
+}
+.content .contentMes .special h1{
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 20px;
+  border-bottom: 1px solid #dcdcdc;
+}
+.content .contentMes .special .all {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5px;
+}
+.content .contentMes .special .all .specialImg {
+  width: 20%;
+  height: 300px;
+  padding: 5px;
+}
+.content .contentMes .special .all .specialImg img{
+  width: 100%;
+  height: 100%;
+}
+.content .contentMes .special .all .specialImg:first-child,
+.content .contentMes .special .all .specialImg:last-child{
+  width: 40%;
+}
