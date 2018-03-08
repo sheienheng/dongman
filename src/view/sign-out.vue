@@ -6,6 +6,7 @@
               <img src="../../static/img/gua2.jpg">
             </router-link>
         </div>
+      <h1>{{mes}}</h1>
         <!--登录表单-->
         <div class="main">
             <div class="title">
@@ -18,19 +19,19 @@
             <div class="js-sign-in">
                 <form method="post" >
                     <div class="input-prepend">
-                        <input class="top-radius" type="text" value="" name="" placeholder="手机号或邮箱">
+                        <input class="top-radius userName" type="text" name="userName" placeholder="设置用户名">
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="input-prepend">
-                        <input type="text" value="" name="" placeholder="手机号">
-                        <i class="fa fa-mobile" aria-hidden="true"></i>
-                    </div>
-
-                    <div class="input-prepend">
-                        <input class="bottom-radius" type="text" value="" name="" placeholder="设置密码">
+                        <input class="bottom-radius userPwd" type="password" name="userPwd" placeholder="设置密码">
                         <i class="fa fa-lock"></i>
                     </div>
-                    <input  class="btn sign-up-btn" value="注册" style="background-color: #ff7e00;color: #fff">
+                    <div class="input-prepend" style="margin-bottom: 60px;">
+                      <input class="bottom-radius userPPwd" type="password" name="userPPwd" placeholder="确认密码">
+                      <i class="fa fa-lock"></i>
+                    </div>
+                    <input type="button" class="btn sign-up-btn" value="注册"
+                           @click="reg()" style="background-color: #ff7e00;color: #fff">
                     <p class="sign-up-msg">点击 “注册” 即表示您同意并愿意遵守简书<br>
                         用户协议 和 隐私政策 。</p>
 
@@ -56,14 +57,37 @@
 </template>
 <script>
   import '../assets/css/sign.css'
+  import axios from 'axios'
   export default{
     layout:'sign',//当前页面所使用的默认模板是layouts文件夹下的sign.vue
-    head () {
+    data () {
       return{
-        title:"注册-简书",
+        title:"注册",
         meta:[
           {hid: 'description',name:'description',content:'注册页面'}
-        ]
+        ],
+        mes:''
+      }
+    },
+    methods:{
+      reg(){
+        var userName=document.querySelector('.userName').value;
+        var userPwd=document.querySelector('.userPwd').value;
+        var userPPwd=document.querySelector('.userPPwd').value;
+        axios.post("/users/reg",{
+          userName:userName,
+          userPwd:userPwd,
+          userPPwd:userPPwd
+        }).then((response)=>{
+          let res = response.data;
+        if(res.status=="0"){
+          this.$router.push({
+            path:'/sign-in'
+          })
+        }else{
+          this.mes=res.msg;
+        }
+      });
       }
     }
   }

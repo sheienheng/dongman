@@ -13,38 +13,25 @@
           <th style="width: 10%;">小计</th>
           <th style="width: 10%;">操作</th>
         </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><img src="../../static/img/te1.jpg" alt=""></td>
-          <td>gifjgvrekfol</td>
-          <td>111</td>
-          <td><button>-</button><span class="count">4</span><button>+</button></td>
-          <td>444</td>
-          <td><span>删除</span></td>
+        <tr v-for="(pro,index) in cartList">
+          <td><input type="checkbox" class="checked" @click="checked(index)"></td>
+          <td><img :src="'/static/img/'+pro.productImage" alt=""></td>
+          <td>{{pro.productName}}</td>
+          <td>{{pro.salePrice}}</td>
+          <td><button @click="changeCount(pro.productId,pro.checked,pro.productNum,-1,
+          pro.salePrice)">-</button>
+            <span class="count">{{pro.productNum}}</span>
+            <button @click="changeCount(pro.productId,pro.checked,pro.productNum,1,
+            pro.salePrice)">+</button>
+          </td>
+          <td>{{pro.salePrice*pro.productNum}}</td>
+          <td><span style="color: red;cursor: pointer;" @click="cartDel(pro.productId,pro.productNum)">删除</span></td>
         </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><img src="../../static/img/te1.jpg" alt=""></td>
-          <td>gifjgvrekfol</td>
-          <td>111</td>
-          <td><button>-</button><span class="count">4</span><button>+</button></td>
-          <td>444</td>
-          <td><span>删除</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><img src="../../static/img/te1.jpg" alt=""></td>
-          <td>gifjgvrekfol</td>
-          <td>111</td>
-          <td><button>-</button><span class="count">4</span><button>+</button></td>
-          <td>444</td>
-          <td><span>删除</span></td>
-        </tr>
+
       </table>
       <div style="display: flex;justify-content: space-between;margin-top: 30px">
-        <p>总价：<span>444</span></p>
-        <router-link to="/" style="padding: 10px 20px;border-radius: 5px;background-color: #ffad52;
-color: #fff;">去结账</router-link>
+        <p>总价：<span style="color: red;font-size: 26px">{{sPrice}}</span>元</p>
+        <router-link class="jiezhang" to="/">去结账</router-link>
       </div>
     </div>
   </div>
@@ -52,6 +39,8 @@ color: #fff;">去结账</router-link>
 
 <script>
   import Header from '../components/header'
+  import { mapState } from 'vuex'
+  import axios from 'axios'
   export default {
     name: "cart",
     components:{
@@ -59,7 +48,111 @@ color: #fff;">去结账</router-link>
     },
     data(){
       return{
-
+        cartList:[],
+        count:0,
+        price:0,
+        nPrice:0,
+        sPrice:0,
+        lastNum:-1,
+        time:0,
+        time2:0,
+        myTimeout:null,
+        myTimeout2:null,
+      }
+    },
+    computed:{
+      ...mapState(['nickName','cartCount','userId'])
+    },
+    mounted(){
+      this.getCartList();
+    },
+    methods:{
+      checked(index){
+        var a=document.querySelectorAll('.checked');
+        if(a[index].checked){
+          this.cartList[index].checked='0'
+          // console.log(this.cartList[index].salePrice)
+          this.sPrice +=this.cartList[index].salePrice * this.cartList[index].productNum
+        }else{
+          this.cartList[index].checked='1'
+          this.sPrice -=this.cartList[index].salePrice * this.cartList[index].productNum
+        }
+      },
+      getCartList(){
+        var param={
+          userId:this.userId
+        }
+        axios.get("/users/cartList",{params:param}).then((response)=>{
+          let res = response.data;
+          this.cartList = res.result;
+          console.log(this.cartList)
+        });
+      },
+      done:function (){
+        if(this.time == 0){
+          clearInterval(this.myTimeout);
+        }
+        else{
+          this.time=this.time-1;
+        }
+      },
+      done2:function (){
+        if(this.time2 == 0){
+          clearInterval(this.myTimeout2);
+        }
+        else{
+          this.time2=this.time2-1;
+          console.log(this.time2)
+        }
+      },
+      changeCount(proId,proCheck,proNum,num,price){
+        if(this.time==0){
+          if(proCheck=='0'){
+            this.sPrice += price * num
+          }
+          this.time=3;
+          this.myTimeout=setInterval(()=>{
+            this.done()
+          },1000);
+          var productNum =proNum*1+num;
+          var productId=proId
+          var checked=proCheck
+          if(productNum==0){
+            this.cartDel(productId,num)
+          }else{
+            axios.post("/users/changeCount",{
+              userId:this.userId,productId:productId,productNum:productNum,checked:checked
+            }).then((response)=>{
+              let res = response.data;
+            if(res.status == '0'){
+              this.getCartList();
+              this.$store.commit("updateCartCount",num);
+            }
+          });
+          }
+        }else{
+          console.log(222222222)
+        }
+      },
+      cartDel(proId,num){
+        if(this.time2==0){
+          this.time2=3;
+          this.myTimeout2=setInterval(()=>{
+            this.done2()
+          },1000);
+          this.count=num;
+          console.log(this.userId)
+          axios.post("/users/cartDel",{
+            userId:this.userId,productId:proId
+          }).then((response)=>{
+              let res = response.data;
+            if(res.status == '0'){
+              this.getCartList();
+              this.$store.commit("updateCartCount",-this.count);
+              console.log(res.msg)
+            }
+          });
+        }
       }
     }
   }
@@ -85,5 +178,15 @@ table th,table td{
   table td .count{
     border: 1px solid#969696;
     padding: 3px 10px;
+  }
+  .jiezhang{
+    display:inline-block;
+    width: 80px;
+    height: 40px;
+    line-height:40px;
+    text-align:center;
+    border-radius: 5px;
+    background-color: #ffad52;
+    color: #fff;
   }
 </style>

@@ -9,7 +9,7 @@
             "orderTotal" : 300,
             "addressInfo" : {
                 "addressId" : "100001",
-                "userName" : "ganzhongxiang",
+                "userName" : "lucancan",
                 "streetName" : "河南郑州经开区第八大街",
                 "postCode" : 100001,
                 "tel" : 15226161302.0,
@@ -18,89 +18,12 @@
             "goodsList" : [],
             "orderStatus" : "1",
             "createDate" : "2018-01-11 14:44:16"
-        },
-        {
-            "orderId" : "6224201801111450026",
-            "orderTotal" : 209375,
-            "addressInfo" : {
-                "addressId" : "100001",
-                "userName" : "ganzhongxiang",
-                "streetName" : "河南郑州经开区第八大街",
-                "postCode" : 100001,
-                "tel" : 15226161302.0,
-                "isDefault" : true
-            },
-            "goodsList" : [
-                {
-                    "checked" : "1",
-                    "productImage" : "1.jpg",
-                    "salePrice" : "129",
-                    "productName" : "小钢炮蓝牙音箱",
-                    "productId" : "201710017",
-                    "_id" : ObjectId("5a570650c60cf6de16df184c"),
-                    "productNum" : "62"
-                },
-                {
-                    "checked" : "1",
-                    "productImage" : "2.jpg",
-                    "salePrice" : "80",
-                    "productName" : "头戴式耳机-3",
-                    "productId" : "201710004",
-                    "_id" : ObjectId("5a570650c60cf6de16df184a"),
-                    "productNum" : "24"
-                },
-                {
-                    "checked" : "1",
-                    "productImage" : "6.jpg",
-                    "salePrice" : "59",
-                    "productName" : "智能插线板",
-                    "productId" : "201710002",
-                    "_id" : ObjectId("5a570650c60cf6de16df1848"),
-                    "productNum" : "7"
-                },
-                {
-                    "checked" : "1",
-                    "productImage" : "note.jpg",
-                    "salePrice" : "3549",
-                    "productName" : "小米笔记本",
-                    "productId" : "201710005",
-                    "_id" : ObjectId("5a570650c60cf6de16df1866"),
-                    "productNum" : "56"
-                }
-            ],
-            "orderStatus" : "1",
-            "createDate" : "2018-01-11 14:50:02"
-        },
-        {
-            "orderId" : "6228201801112151190",
-            "orderTotal" : 339,
-            "addressInfo" : {
-                "addressId" : "100001",
-                "userName" : "ganzhongxiang",
-                "streetName" : "河南郑州经开区第八大街",
-                "postCode" : 100001,
-                "tel" : 15226161302.0,
-                "isDefault" : true
-            },
-            "goodsList" : [
-                {
-                    "checked" : "1",
-                    "productImage" : "zipai.jpg",
-                    "salePrice" : "39",
-                    "productName" : "自拍杆",
-                    "productId" : "201710007",
-                    "_id" : ObjectId("5a570650c60cf6de16df1846"),
-                    "productNum" : "1"
-                }
-            ],
-            "orderStatus" : "1",
-            "createDate" : "2018-01-11 21:51:19"
         }
     ],
     "cartList" : [
         {
             "checked" : "0",
-            "productImage" : "zipai.jpg",
+            "productImage" : "ten1.jpg",
             "salePrice" : "39",
             "productName" : "自拍杆",
             "productId" : "201710007",
@@ -109,7 +32,7 @@
         },
         {
             "checked" : "1",
-            "productImage" : "2.jpg",
+            "productImage" : "ten2.jpg",
             "salePrice" : "80",
             "productName" : "头戴式耳机-3",
             "productId" : "201710004",
@@ -126,8 +49,7 @@
             "tel" : NumberLong(15226161302),
             "isDefault" : true
         }
-    ],
-    "__v" : 9
+    ]
 }
 
 

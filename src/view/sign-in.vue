@@ -6,6 +6,7 @@
                 <img src="../../static/img/gua2.jpg">
             </router-link>
         </div>
+        <h2>{{mes}}</h2>
         <!--登录表单-->
         <div class="main">
             <div class="title">
@@ -18,11 +19,11 @@
             <div class="js-sign-in">
                 <form method="post" >
                     <div class="input-prepend">
-                        <input class="top-radius" type="text" value="" name="" placeholder="手机号或邮箱">
+                        <input class="top-radius userName" type="text" value="lucancan"  name="userName" placeholder="用户名">
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="input-prepend">
-                        <input class="bottom-radius" type="text" value="" name="" placeholder="密码">
+                        <input class="bottom-radius userPwd" type="password" value="123456" name="userPwd" placeholder="密码">
                         <i class="fa fa-lock"></i>
                     </div>
                     <div class="remember">
@@ -34,7 +35,8 @@
                             登录遇到问题?
                         </router-link>
                     </div>
-                    <input class="btn" value="登录" style="background-color: #ff7e00;color: #fff">
+                    <input type="button" class="btn" value="登录" style="background-color: #ff7e00;color: #fff"
+                           @click="login()">
                 </form>
                 <div class="more-sign">
                     <p>社交账号登录</p>
@@ -63,19 +65,47 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 <script>
     import '../assets/css/sign.css'
+    import { mapState } from 'vuex'
+    import axios from 'axios'
     export default{
         layout:'sign',//当前页面所使用的默认模板是layouts文件夹下的sign.vue
-        head () {
+        data () {
           return{
-            title:"登录-简书",
+            title:"登录",
             meta:[
               {hid: 'description',name:'description',content:'登录页面'}
-            ]
+            ],
+            mes:''
           }
-        }
+        },
+      computed:{
+        ...mapState(['nickName','cartCount','userId'])
+      },
+      methods:{
+          login(){
+            var userName=document.querySelector('.userName').value;
+            var userPwd=document.querySelector('.userPwd').value;
+            axios.post("/users/login",{
+                userName:userName,
+                userPwd:userPwd
+              }).then((response)=>{
+                let res = response.data;
+              if(res.status=="0"){
+                this.$store.commit("updateUserInfo",res.result.userName);
+                this.$store.commit("updateUserId",res.result.userId)
+                this.$router.push({
+                  path:'/'
+                })
+              }else{
+                this.mes=res.msg;
+              }
+            });
+          }
+      }
     }
 </script>

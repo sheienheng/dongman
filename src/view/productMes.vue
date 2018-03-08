@@ -37,7 +37,7 @@
     },
     data(){
       return{
-        proMes:[],
+        proMes:[{productName:'ss',productImage:'ss'}],
       }
     },
     mounted(){
@@ -53,8 +53,7 @@
           var res = response.data;
           console.log(res)
           if(res.status == '0'){
-            this.proMes = this.proMes.concat(res.result.list);
-            console.log(this.proMes)
+            this.proMes = res.result.list;
           }else{
             this.proMes=[];
           }

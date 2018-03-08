@@ -17,13 +17,37 @@ module.exports = {
       '/goods':{
         target:'http://localhost:3000'
       },
+      '/users/cartList':{
+        target:'http://localhost:3000'
+      },
       '/goods/list':{
         target:'http://localhost:3000'
       },
       '/goods/list2':{
         target:'http://localhost:3000'
       },
-      '/users/*':{
+      '/goods/addCart':{
+        target:'http://localhost:3000'
+      },
+      '/users/login':{
+        target:'http://localhost:3000'
+      },
+      '/users/reg':{
+        target:'http://localhost:3000'
+      },
+      '/users/logout':{
+        target:'http://localhost:3000'
+      },
+      '/users/cartDel':{
+        target:'http://localhost:3000'
+      },
+      '/users/cartEdit':{
+        target:'http://localhost:3000'
+      },
+      '/users/getCartCount':{
+        target:'http://localhost:3000'
+      },
+      '/users/changeCount':{
         target:'http://localhost:3000'
       }
     },

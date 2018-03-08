@@ -24,7 +24,8 @@ const store = new Vuex.Store({
   //全局状态管理的数据
   state: {
     nickName:'',
-    cartCount:0
+    cartCount:0,
+    userId:''
   },
   //mutations 事件 改变Vuex的state的状态
   mutations: {
@@ -32,8 +33,14 @@ const store = new Vuex.Store({
     updateUserInfo(state, nickName) {
       state.nickName = nickName;
     },
+    updateUserId(state,userId){
+      state.userId = userId;
+    },
     updateCartCount(state,cartCount){
       state.cartCount += cartCount;
+    },
+    updateCartCount1(state,cartCount){
+      state.cartCount = cartCount;
     }
   }
 });

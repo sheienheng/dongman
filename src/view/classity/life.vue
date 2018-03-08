@@ -30,7 +30,7 @@
                 <p style="height: 55px;">{{ten.productName}}</p>
                 <div>
                   <span>￥{{ten.salePrice}}元</span>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
+                  <span class="cart" @click="addCart(ten.productId)"><i class="fa fa-plus-circle"></i>加入购物车</span>
                 </div>
                 <span>热销</span>
               </div>
@@ -46,6 +46,7 @@
   import Header from '../../components/header'
   import '../../assets/css/classity.css'
   import axios from 'axios'
+  import { mapState } from 'vuex'
   export default {
     name: "life",
     data(){
@@ -57,6 +58,9 @@
     },
     components:{
       Header:Header,
+    },
+    computed:{
+      ...mapState(['nickName','cartCount','userId'])
     },
     mounted(){
       this.ss();
@@ -88,6 +92,19 @@
           this.$refs.up.classList = 'sortactive'
           this.$refs.down.classList = ''
         }
+      },
+      addCart(id){
+        var param = {
+          productId:id,
+          userId:this.userId
+        }
+        axios.post("/goods/addCart",{productId:id,userId:this.userId}).then((response)=>{
+          var res = response.data;
+          if(res.status=='0'){
+            this.$store.commit("updateCartCount",1);
+            this.mes=res.msg;
+          }
+        })
       },
       toProMes(id){
         this.$router.push({

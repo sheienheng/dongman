@@ -10,10 +10,12 @@
             <router-link to="/cart">
               <img src="/static/img/cart.png" alt="">
             </router-link>
-            <!--<router-link to="/sign-out">注册</router-link>-->
-            <!--<p>/</p>-->
-            <!--<router-link to="/sign-in">登录</router-link>-->
-            <div class="avatar">
+            <a href="javascript:void(0)"  :class="nickName==''?'show':''">
+              <span style="color: red;font-size: 20px;">{{nickName}}</span>&#x3000;欢迎你</a>
+            <router-link to="/sign-out"  :class="nickName==''?'':'show'">注册</router-link>
+            <p  :class="nickName==''?'':'show'">/</p>
+            <router-link to="/sign-in"  :class="nickName==''?'':'show'">登录</router-link>
+            <div class="avatar" :class="nickName==''?'show':''">
               <img src="/static/img/me.jpg" alt="">
               <ul class="avatarMes">
                 <li>
@@ -22,12 +24,14 @@
                   <router-link to="/me">我的订单</router-link>
                 </li>
                 <li>
-                  <a href="javascript:void(0)">退出</a>
+                  <a href="javascript:void(0)" @click="logout()">退出</a>
                 </li>
               </ul>
             </div>
+
           </div>
-          <span class="cartCount" v-text="cartCount"></span>
+          <span class="cartCount" v-text="cartCount" v-if="nickName!=''"></span>
+          <span class="cartCount"  v-if="nickName==''">0</span>
         </div>
 
       </div>
@@ -76,6 +80,7 @@
 
 <script>
   import { mapState } from 'vuex'
+  import axios from 'axios'
   export default{
     props:['num','num2'],
     data(){
@@ -111,16 +116,24 @@
       }
     },
     computed:{
-      ...mapState(['nickName','cartCount'])
+      ...mapState(['nickName','cartCount','userId'])
     },
     mounted(){
-      this.ss()
     },
     methods:{
-      ss:function(){
 
+      logout:function(){
+        axios.post("/users/logout",{}).then((response)=>{
+          let res = response.data;
+        if(res.status=="0"){
+          this.$store.commit("updateUserInfo",'');
+          this.$store.commit("updateUserId",'')
+          this.$router.push({
+            path:'/'
+          })
+        }
+      });
       }
-
     }
   }
 </script>
@@ -306,5 +319,8 @@
   }
   .avatarMes li:hover{
     background-color: #f0f0f0;
+  }
+  .show{
+    display: none;
   }
 </style>
