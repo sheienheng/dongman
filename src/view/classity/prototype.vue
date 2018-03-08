@@ -24,65 +24,15 @@
             </div>
           </div>
           <ul class="contentPro clearfix">
-            <li>
+            <li v-for="(ten,index) in shiyuanList">
               <div class="proMes">
-                <img src="../../../static/img/shou1.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
+                <img :src="'/static/img/'+ten.productImage" alt="" @click="toProMes(ten._id)">
+                <p style="height: 55px;">{{ten.productName}}</p>
                 <div>
-                  <span>￥11.00元</span><br>
+                  <span>￥{{ten.salePrice}}元</span>
                   <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
                 </div>
-
-              </div>
-            </li>
-            <li>
-              <div class="proMes">
-                <img src="../../../static/img/shou2.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
-                <div>
-                  <span>￥11.00元</span><br>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="proMes">
-                <img src="../../../static/img/shou3.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
-                <div>
-                  <span>￥11.00元</span><br>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="proMes">
-                <img src="../../../static/img/shou4.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
-                <div>
-                  <span>￥11.00元</span><br>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="proMes">
-                <img src="../../../static/img/shou5.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
-                <div>
-                  <span>￥11.00元</span><br>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="proMes">
-                <img src="../../../static/img/shou6.jpg" alt="">
-                <p>电影周边-11元超低价商品特卖</p>
-                <div>
-                  <span>￥11.00元</span><br>
-                  <span class="cart"><i class="fa fa-plus-circle"></i>加入购物车</span>
-                </div>
+                <span>热销</span>
               </div>
             </li>
           </ul>
@@ -95,12 +45,14 @@
 <script>
   import Header from '../../components/header'
   import '../../assets/css/classity.css'
+  import axios from 'axios'
   export default {
     name: "prototype",
     data(){
       return{
         classityNum:null,
         activeNum:1,
+        shiyuanList:[],
       }
     },
     components:{
@@ -108,11 +60,25 @@
     },
     mounted(){
       this.ss();
+      this.getGoods();
     },
     methods:{
       ss:function () {
         this.classityNum = this.$route.query.a;
         // console.log(this.$route.query.a);
+      },
+      getGoods(){
+        var param = {
+          productType:'shouban'
+        };
+        axios.get("/goods/list",{params:param}).then((response)=>{
+          var res = response.data;
+        if(res.status == '0'){
+          this.shiyuanList = this.shiyuanList.concat(res.result.list);
+        }else{
+          this.shiyuanList=[];
+        }
+      })
       },
       sortChange:function (num) {
         if(num == 1){
@@ -122,6 +88,11 @@
           this.$refs.up.classList = 'sortactive'
           this.$refs.down.classList = ''
         }
+      },
+      toProMes(id){
+        this.$router.push({
+          path:'/productMes?orderId='+id
+        })
       }
     }
   }

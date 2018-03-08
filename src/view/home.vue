@@ -22,8 +22,10 @@
           <div class="special">
             <h1 style="">特价专区</h1>
             <div class="all">
-              <div class="specialImg" v-for="str in specialImg">
-                <router-link to="/productMes"><img :src="str.url" alt=""></router-link>
+              <div v-for="(tejia,index) in tejiaList" class="specialImg">
+                <a href="javascript:void(0)" @click="toProMes(tejia._id)">
+                  <img :src="'/static/img/'+tejia.productImage" alt="">
+                </a>
               </div>
             </div>
 
@@ -41,6 +43,7 @@
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
   import 'swiper/dist/js/swiper.min.js';
+  import axios from 'axios'
     export default {
       name: "home",
       data() {
@@ -51,18 +54,9 @@
             {url: '/static/img/lunbo3.jpg'},
             {url: '/static/img/lunbo4.jpg'}
           ],
-          specialImg:[
-            {url: '/static/img/te1.jpg'},
-            {url: '/static/img/te2.jpg'},
-            {url: '/static/img/te3.jpg'},
-            {url: '/static/img/te4.jpg'},
-            {url: '/static/img/te5.jpg'},
-            {url: '/static/img/te6.jpg'},
-            {url: '/static/img/te7.jpg'},
-            {url: '/static/img/te8.jpg'},
-          ],
           thisShow:0,
           activeNum:1,
+          tejiaList:[],
         }
       },
       mounted() {
@@ -84,6 +78,7 @@
             prevEl: '.swiper-button-prev',
           },
         });
+        this.getGoods();
       },
       components:{
           Header:Header,
@@ -94,6 +89,24 @@
         },
         jian(){
           this.$store.commit("updateCartCount",-1);
+        },
+        getGoods(){
+          var param = {
+            productType:'tejia'
+          };
+          axios.get("/goods/list",{params:param}).then((response)=>{
+            var res = response.data;
+            if(res.status == '0'){
+              this.tejiaList = this.tejiaList.concat(res.result.list);
+            }else{
+              this.tejiaList=[];
+            }
+          })
+        },
+        toProMes(id){
+          this.$router.push({
+            path:'/productMes?orderId='+id
+          })
         }
       }
     }

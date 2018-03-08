@@ -7,10 +7,26 @@ const path = require('path')
 module.exports = {
   dev: {
 
-    // Paths
+    env: require('./dev.env'),
+    port: process.env.PORT || 8080,
+    autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      //在这里做代理跨域
+      '/goods':{
+        target:'http://localhost:3000'
+      },
+      '/goods/list':{
+        target:'http://localhost:3000'
+      },
+      '/goods/list2':{
+        target:'http://localhost:3000'
+      },
+      '/users/*':{
+        target:'http://localhost:3000'
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,7 +36,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
