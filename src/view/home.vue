@@ -23,7 +23,7 @@
             <h1 style="">特价专区</h1>
             <div class="all">
               <div class="specialImg" v-for="str in specialImg">
-                <img :src="str.url" alt="">
+                <router-link to="/productMes"><img :src="str.url" alt=""></router-link>
               </div>
             </div>
 

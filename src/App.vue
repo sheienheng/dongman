@@ -90,4 +90,7 @@ export default {
     line-height: 45px;
     color: #fff;
   }
+  a:hover{
+    text-decoration: none;
+  }
 </style>

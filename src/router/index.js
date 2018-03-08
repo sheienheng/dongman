@@ -10,6 +10,9 @@ import Strap from '@/view/classity/strap'
 import Model from '@/view/classity/model'
 import signIn from '@/view/sign-in'
 import signOut from '@/view/sign-out'
+import Cart from '@/view/cart'
+import Presell from '@/view/presell'
+import ProductMes from '@/view/productMes'
 
 Vue.use(Router)
 
@@ -58,6 +61,18 @@ export default new Router({
     {
       path:'/classity/prototype',
       component: Prototype
+    },
+    {
+      path:'/cart',
+      component: Cart
+    },
+    {
+      path:'/presell',
+      component: Presell
+    },
+    {
+      path:'/productMes',
+      component: ProductMes
     }
   ]
 })

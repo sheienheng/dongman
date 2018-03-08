@@ -7,10 +7,25 @@
             <router-link to="/"><span><strong>动漫商城</strong></span></router-link>
           </div>
           <div>
-            <img src="/static/img/cart.png" alt="">
-            <router-link to="/sign-out">注册</router-link>
-            <p>/</p>
-            <router-link to="/sign-in">登录</router-link>
+            <router-link to="/cart">
+              <img src="/static/img/cart.png" alt="">
+            </router-link>
+            <!--<router-link to="/sign-out">注册</router-link>-->
+            <!--<p>/</p>-->
+            <!--<router-link to="/sign-in">登录</router-link>-->
+            <div class="avatar">
+              <img src="/static/img/me.jpg" alt="">
+              <ul class="avatarMes">
+                <li>
+                  <router-link to="/me">我的资料</router-link></li>
+                <li>
+                  <router-link to="/me">我的订单</router-link>
+                </li>
+                <li>
+                  <a href="javascript:void(0)">退出</a>
+                </li>
+              </ul>
+            </div>
           </div>
           <span class="cartCount" v-text="cartCount"></span>
         </div>
@@ -38,19 +53,7 @@
             <router-link :to="navListPath[index].path"  v-if="index==num2" class="activeColor">
               {{list.list}}
             </router-link>
-            <ul class="listChildren" v-if="index==0&&num2==1">
-              <li v-for="(p,index2) in pathMes">
-                <router-link :to="path[index2]" v-if="index2!=num">
-                  <span>{{p.Mes}}</span>
-                  <i class="fa fa-angle-right"></i>
-                </router-link>
-                <router-link :to="path[index2]" v-if="index2==num" class="hoverColor">
-                  <span>{{p.Mes}}</span>
-                  <i class="fa fa-angle-right"></i>
-                </router-link>
-              </li>
-            </ul>
-            <ul class="listChildren showHide" v-if="index==0&&num2!=1">
+            <ul :class="index==0&&num2==1?'listChildren':'listChildren showHide'" v-if="index==0">
               <li v-for="(p,index2) in pathMes">
                 <router-link :to="path[index2]" v-if="index2!=num">
                   <span>{{p.Mes}}</span>
@@ -87,7 +90,7 @@
           {path:''},
           {path:'/'},
           {path:'/sale'},
-          {path:'/'},
+          {path:'/presell'},
         ],
         path:[
           {path:'/classity/tenyuan',query: {a: 0}},
@@ -122,6 +125,13 @@
   }
 </script>
 <style scoped>
+  .clearfix:after{
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+  }
   .header{
     width: 100%;
     height: 48px;
@@ -181,6 +191,7 @@
     height: 40px;
     border: 1px solid #ffad52;
     border-radius: 5px;
+    padding: 0 10px;
   }
   .top .search-input span{
     position: absolute;
@@ -255,5 +266,45 @@
   }
   nav>.navList>li .listChildren li i{
     margin-top: 15px;
+  }
+  .avatar{
+    position:relative;
+    width: 45px;
+    height: 45px;
+    right: 60px;
+    /*border: 1px solid #969696;*/
+    /*border-radius: 50%;*/
+  }
+  .avatar img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #969696;
+    border-radius: 50%;
+    margin: 0!important;
+  }
+  .avatar:hover .avatarMes{
+    display: block;
+  }
+  .avatarMes{
+    position: absolute;
+    width: 100px;
+    background-color: #fff;
+    top: 45px;
+    left: -25px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    display: none;
+  }
+  .avatarMes li{
+    width: 100%;
+    height: 48px;
+  }
+  .avatarMes li a{
+    width: 100%;
+    margin: 0!important;
+    text-align: center;
+  }
+  .avatarMes li:hover{
+    background-color: #f0f0f0;
   }
 </style>
