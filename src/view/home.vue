@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="special">
-            <h1 style="">特价专区</h1>
+            <h1 style=""><router-link to="/upload">特价专区</router-link></h1>
             <div class="all">
               <div v-for="(tejia,index) in tejiaList" class="specialImg">
                 <a href="javascript:void(0)" @click="toProMes(tejia._id)">
@@ -83,28 +83,11 @@
           },
         });
         this.getGoods();
-        this.getCartCount();
       },
       components:{
           Header:Header,
       },
       methods:{
-        getCartCount(){
-          console.log(this.userId)
-          var param={
-            userId:this.userId
-          }
-          axios.get("/users/getCartCount",{params:param}).then(response=>{
-            var res = response.data;
-            this.$store.commit("updateCartCount1",res.result);
-          });
-        },
-        add(){
-          this.$store.commit("updateCartCount",1);
-        },
-        jian(){
-          this.$store.commit("updateCartCount",-1);
-        },
         getGoods(){
           var param = {
             productType:'tejia'
@@ -113,6 +96,11 @@
             var res = response.data;
             if(res.status == '0'){
               this.tejiaList = this.tejiaList.concat(res.result.list);
+              if(res.result.userName.length>0){
+                this.$store.commit("updateUserInfo",res.result.userName);
+                this.$store.commit("updateUserId",res.result.userId)
+              }
+              console.log(this.nickName)
             }else{
               this.tejiaList=[];
             }

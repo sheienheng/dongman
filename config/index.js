@@ -49,6 +49,12 @@ module.exports = {
       },
       '/users/changeCount':{
         target:'http://localhost:3000'
+      },
+      '/users/up':{
+        target:'http://localhost:3000'
+      },
+      '/users/userName':{
+        target:'http://localhost:3000'
       }
     },
 

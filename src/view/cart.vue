@@ -25,7 +25,7 @@
             pro.salePrice)">+</button>
           </td>
           <td>{{pro.salePrice*pro.productNum}}</td>
-          <td><span style="color: red;cursor: pointer;" @click="cartDel(pro.productId,pro.productNum)">删除</span></td>
+          <td><span style="color: red;cursor: pointer;" @click="cartDel(pro.productId,pro.productNum,pro.salePrice.pro.checked)">删除</span></td>
         </tr>
 
       </table>
@@ -84,7 +84,9 @@
         }
         axios.get("/users/cartList",{params:param}).then((response)=>{
           let res = response.data;
-          this.cartList = res.result;
+          this.cartList = res.result.list;
+          this.$store.commit("updateUserInfo",res.result.userName);
+          this.$store.commit("updateUserId",res.result.userId)
           console.log(this.cartList)
         });
       },
@@ -134,14 +136,16 @@
           console.log(222222222)
         }
       },
-      cartDel(proId,num){
+      cartDel(proId,num,price,checke){
         if(this.time2==0){
           this.time2=3;
           this.myTimeout2=setInterval(()=>{
             this.done2()
           },1000);
-          this.count=num;
-          console.log(this.userId)
+          if(checke == '0'){
+            this.sPrice -=num*price;
+            this.count=num;
+          }
           axios.post("/users/cartDel",{
             userId:this.userId,productId:proId
           }).then((response)=>{
@@ -149,7 +153,6 @@
             if(res.status == '0'){
               this.getCartList();
               this.$store.commit("updateCartCount",-this.count);
-              console.log(res.msg)
             }
           });
         }

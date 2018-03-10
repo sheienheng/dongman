@@ -10,13 +10,14 @@
             <router-link to="/cart">
               <img src="/static/img/cart.png" alt="">
             </router-link>
-            <a href="javascript:void(0)"  :class="nickName==''?'show':''">
+            <a href="javascript:void(0)"  :class="nickName.length>0?'':'show'">
               <span style="color: red;font-size: 20px;">{{nickName}}</span>&#x3000;欢迎你</a>
-            <router-link to="/sign-out"  :class="nickName==''?'':'show'">注册</router-link>
-            <p  :class="nickName==''?'':'show'">/</p>
-            <router-link to="/sign-in"  :class="nickName==''?'':'show'">登录</router-link>
-            <div class="avatar" :class="nickName==''?'show':''">
-              <img src="/static/img/me.jpg" alt="">
+            <router-link to="/sign-out"  :class="nickName.length>0?'show':''">注册</router-link>
+            <p  :class="nickName.length>0?'show':''">/</p>
+            <router-link to="/sign-in"  :class="nickName.length>0?'show':''">登录</router-link>
+            <div class="avatar" :class="nickName.length>0?'':'show'">
+              <img :src="'/static/headImg/'+nickName+'.jpg'" alt="">
+              <!--<img src="../../static/img/gua2.jpg" alt="">-->
               <ul class="avatarMes">
                 <li>
                   <router-link to="/me">我的资料</router-link></li>
@@ -112,29 +113,39 @@
           {Mes:'服饰鞋帽'},
           {Mes:'生活娱乐'},
           {Mes:'精品挂饰'},
-        ]
+        ],
       }
     },
     computed:{
       ...mapState(['nickName','cartCount','userId'])
-    },
-    mounted(){
-    },
-    methods:{
-
-      logout:function(){
-        axios.post("/users/logout",{}).then((response)=>{
-          let res = response.data;
-        if(res.status=="0"){
-          this.$store.commit("updateUserInfo",'');
-          this.$store.commit("updateUserId",'')
-          this.$router.push({
-            path:'/'
-          })
-        }
-      });
+  },
+  mounted(){
+    this.getGoods();
+  },
+  methods:{
+    getGoods(){
+      console.log(this.userId)
+      var param={
+        userId:this.userId
       }
+      axios.get("/users/getCartCount",{params:param}).then(response=>{
+        var res = response.data;
+        this.$store.commit("updateCartCount1",res.result);
+      });
+    },
+    logout:function(){
+      axios.post("/users/logout").then((response)=>{
+        let res = response.data;
+      if(res.status=="0"){
+        this.$store.commit("updateUserInfo",'');
+        this.$store.commit("updateUserId",'')
+        this.$router.push({
+          path:'/'
+        })
+      }
+    });
     }
+  }
   }
 </script>
 <style scoped>
@@ -285,8 +296,9 @@
     width: 45px;
     height: 45px;
     right: 60px;
-    /*border: 1px solid #969696;*/
-    /*border-radius: 50%;*/
+    background-image: url("/static/img/gua2.jpg");
+    border-radius: 50%;
+    background-size: 100% auto;
   }
   .avatar img{
     position: absolute;

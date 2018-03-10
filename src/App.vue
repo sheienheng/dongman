@@ -22,7 +22,17 @@ export default {
     Footer:Footer
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll)
+    window.addEventListener('scroll',this.handleScroll);
+  },
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.path;
+      const fromDepth = from.path
+      console.log(toDepth)
+      if(fromDepth=='/upload'&&toDepth=='/'){
+        location.reload()
+      }
+    }
   },
   methods:{
     handleScroll(e){

@@ -13,6 +13,7 @@ import signOut from '@/view/sign-out'
 import Cart from '@/view/cart'
 import Presell from '@/view/presell'
 import ProductMes from '@/view/productMes'
+import Upload from '@/view/upload'
 
 Vue.use(Router)
 
@@ -73,6 +74,10 @@ export default new Router({
     {
       path:'/productMes',
       component: ProductMes
+    },
+    {
+      path:'/upload',
+      component: Upload
     }
   ]
 })
