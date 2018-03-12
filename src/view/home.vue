@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="special">
-            <h1 style=""><router-link to="/upload">特价专区</router-link></h1>
+            <h1 style="">特价专区</h1>
             <div class="all">
               <div v-for="(tejia,index) in tejiaList" class="specialImg">
                 <a href="javascript:void(0)" @click="toProMes(tejia._id)">

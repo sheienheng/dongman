@@ -26,12 +26,12 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      const toDepth = to.path;
-      const fromDepth = from.path
-      console.log(toDepth)
-      if(fromDepth=='/upload'&&toDepth=='/'){
-        location.reload()
-      }
+      // const toDepth = to.path;
+      // const fromDepth = from.path
+      // console.log(toDepth)
+      // if(fromDepth=='/upload'&&toDepth=='/'){
+      //   location.reload()
+      // }
     }
   },
   methods:{

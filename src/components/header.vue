@@ -20,7 +20,7 @@
               <!--<img src="../../static/img/gua2.jpg" alt="">-->
               <ul class="avatarMes">
                 <li>
-                  <router-link to="/me">我的资料</router-link></li>
+                  <router-link to="/upload">我的资料</router-link></li>
                 <li>
                   <router-link to="/me">我的订单</router-link>
                 </li>
