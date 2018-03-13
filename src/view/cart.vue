@@ -14,7 +14,7 @@
           <th style="width: 10%;">操作</th>
         </tr>
         <tr v-for="(pro,index) in cartList">
-          <td><input type="checkbox" class="checked" @click="checked(index)"></td>
+          <td><input type="checkbox" class="checked" @click="checke(index)"></td>
           <td><img :src="'/static/img/'+pro.productImage" alt=""></td>
           <td>{{pro.productName}}</td>
           <td>{{pro.salePrice}}</td>
@@ -25,7 +25,7 @@
             pro.salePrice)">+</button>
           </td>
           <td>{{pro.salePrice*pro.productNum}}</td>
-          <td><span style="color: red;cursor: pointer;" @click="cartDel(pro.productId,pro.productNum,pro.salePrice.pro.checked)">删除</span></td>
+          <td><span style="color: red;cursor: pointer;" @click="cartDel(pro.productId,pro.productNum,pro.salePrice,pro.checked)">删除</span></td>
         </tr>
 
       </table>
@@ -67,7 +67,7 @@
       this.getCartList();
     },
     methods:{
-      checked(index){
+      checke(index){
         var a=document.querySelectorAll('.checked');
         if(a[index].checked){
           this.cartList[index].checked='0'
@@ -79,14 +79,10 @@
         }
       },
       getCartList(){
-        var param={
-          userId:this.userId
-        }
-        axios.get("/users/cartList",{params:param}).then((response)=>{
+
+        axios.get("/users/cartList").then((response)=>{
           let res = response.data;
           this.cartList = res.result.list;
-          this.$store.commit("updateUserInfo",res.result.userName);
-          this.$store.commit("updateUserId",res.result.userId)
           console.log(this.cartList)
         });
       },

@@ -13,12 +13,12 @@
             <div style="">
               <p>本店售价<span style="color: #ea6f5a;font-size: 26px;">￥{{proMes[0].salePrice}}元</span></p>
               <p>购买数量
-                <button>-</button>
-                <span style="border: 1px solid #969696;padding: 5px 40px;">5</span>
-                <button>+</button>
+                <button @click="addNum(-1)">-</button>
+                <span style="border: 1px solid #969696;padding: 5px 40px;">{{productNum}}</span>
+                <button @click="addNum(1)">+</button>
               </p><br>
               <span style="background-color: #ffad52;padding: 10px 20px;color: #fff;
-              border-radius: 5px;cursor: pointer;"><i class="fa fa-plus"></i>加入购物车</span>
+              border-radius: 5px;cursor: pointer;" @click="addCart()"><i class="fa fa-plus"></i>加入购物车</span>
             </div>
           </div>
         </div>
@@ -30,6 +30,7 @@
 <script>
   import Header from '../components/header'
   import axios from 'axios'
+  import { mapState } from 'vuex'
   export default {
     name: "product-mes",
     components:{
@@ -38,20 +39,25 @@
     data(){
       return{
         proMes:[{productName:'ss',productImage:'ss'}],
+        proId:'',
+        productNum:1,
       }
+    },
+    computed:{
+      ...mapState(['nickName','cartCount','userId'])
     },
     mounted(){
       this.getId();
     },
     methods:{
       getId(){
-        var id=this.$route.query.orderId;
+        this.proId=this.$route.query.orderId;
+        // console.log()
         var param = {
-          _id:id
+          productId:this.proId
         };
         axios.get("/goods/list2",{params:param}).then((response)=>{
           var res = response.data;
-          console.log(res)
           if(res.status == '0'){
             this.proMes = res.result.list;
           }else{
@@ -59,7 +65,25 @@
           }
         })
 
-      }
+      },
+      addNum(num){
+        if(this.productNum>0){
+          this.productNum=this.productNum+num;
+        }else if(this.productNum==0&&num>0){
+          this.productNum=this.productNum+num;
+        }
+      },
+      addCart(){
+        axios.post("/goods/addCart",{productId:this.proId,userId:this.userId,
+          productNum:this.productNum}).then((response)=>{
+          var res = response.data;
+          console.log(res)
+        if(res.status=='0'){
+          this.$store.commit("updateCartCount",this.productNum);
+          console.log('11111111111')
+        }
+      })
+      },
     }
 
   }

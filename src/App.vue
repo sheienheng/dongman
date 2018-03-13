@@ -11,30 +11,43 @@
 
 <script>
   import Footer from './components/footer'
-export default {
+  import { mapState } from 'vuex'
+  import axios from 'axios'
+  export default {
   name: 'App',
   data(){
     return{
       toTop:false
     }
   },
+  computed:{
+    ...mapState(['nickName','cartCount','userId'])
+  },
   components:{
     Footer:Footer
   },
   mounted(){
+    this.getCount()
     window.addEventListener('scroll',this.handleScroll);
   },
   watch: {
     '$route' (to, from) {
       // const toDepth = to.path;
       // const fromDepth = from.path
-      // console.log(toDepth)
-      // if(fromDepth=='/upload'&&toDepth=='/'){
-      //   location.reload()
-      // }
     }
   },
   methods:{
+    getCount(){
+      axios.get("/users/getCartCount").then(response=>{
+        var res = response.data;
+        if(res.status=="0"){
+          console.log(res.result)
+          this.$store.commit("updateCartCount1",res.result.count);
+          this.$store.commit("updateUserId",res.result.userId)
+          this.$store.commit("updateUserInfo",res.result.userName)
+        }
+      });
+    },
     handleScroll(e){
       let curHeight = document.documentElement.scrollTop || document.body.scrollTop;
       if (curHeight > 48) {

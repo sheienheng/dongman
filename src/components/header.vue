@@ -17,7 +17,6 @@
             <router-link to="/sign-in"  :class="nickName.length>0?'show':''">登录</router-link>
             <div class="avatar" :class="nickName.length>0?'':'show'">
               <img :src="'/static/headImg/'+nickName+'.jpg'" alt="">
-              <!--<img src="../../static/img/gua2.jpg" alt="">-->
               <ul class="avatarMes">
                 <li>
                   <router-link to="/upload">我的资料</router-link></li>
@@ -119,20 +118,7 @@
     computed:{
       ...mapState(['nickName','cartCount','userId'])
   },
-  mounted(){
-    this.getGoods();
-  },
   methods:{
-    getGoods(){
-      console.log(this.userId)
-      var param={
-        userId:this.userId
-      }
-      axios.get("/users/getCartCount",{params:param}).then(response=>{
-        var res = response.data;
-        this.$store.commit("updateCartCount1",res.result);
-      });
-    },
     logout:function(){
       axios.post("/users/logout").then((response)=>{
         let res = response.data;

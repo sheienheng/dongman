@@ -99,9 +99,7 @@
                 this.$store.commit("updateUserInfo",res.result.userName);
                 this.$store.commit("updateUserId",res.result.userId)
                 console.log(this.userId)
-                this.$router.push({
-                  path:'/'
-                })
+                window.location.href='/'
               }else{
                 this.mes=res.msg;
               }

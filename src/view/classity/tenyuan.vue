@@ -26,7 +26,7 @@
             <ul class="contentPro clearfix">
               <li v-for="(ten,index) in shiyuanList">
                 <div class="proMes">
-                  <img :src="'/static/img/'+ten.productImage" alt="" @click="toProMes(ten._id)">
+                  <img :src="'/static/img/'+ten.productImage" alt="" @click="toProMes(ten.productId)">
                   <p style="height: 55px;">{{ten.productName}}</p>
                   <div>
                     <span>￥{{ten.salePrice}}元</span>
@@ -94,11 +94,7 @@
         }
       },
       addCart(id){
-        var param = {
-          productId:id,
-          userId:this.userId
-        }
-        axios.post("/goods/addCart",{productId:id,userId:this.userId}).then((response)=>{
+        axios.post("/goods/addCart",{productId:id,userId:this.userId,productNum:1}).then((response)=>{
           var res = response.data;
           if(res.status=='0'){
             this.$store.commit("updateCartCount",1);

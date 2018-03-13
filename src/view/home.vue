@@ -23,7 +23,7 @@
             <h1 style="">特价专区</h1>
             <div class="all">
               <div v-for="(tejia,index) in tejiaList" class="specialImg">
-                <a href="javascript:void(0)" @click="toProMes(tejia._id)">
+                <a href="javascript:void(0)" @click="toProMes(tejia.productId)">
                   <img :src="'/static/img/'+tejia.productImage" alt="">
                 </a>
               </div>
@@ -32,8 +32,6 @@
           </div>
         </div>
       </div>
-      <!--<button @click="add()">ddsd</button>-->
-      <!--<button @click="jian()">dvfdgfd</button>-->
     </div>
 </template>
 
@@ -96,11 +94,11 @@
             var res = response.data;
             if(res.status == '0'){
               this.tejiaList = this.tejiaList.concat(res.result.list);
-              if(res.result.userName.length>0){
-                this.$store.commit("updateUserInfo",res.result.userName);
-                this.$store.commit("updateUserId",res.result.userId)
-              }
-              console.log(this.nickName)
+              // if(res.result.userName.length>0){
+              //   this.$store.commit("updateUserInfo",res.result.userName);
+              //   this.$store.commit("updateUserId",res.result.userId)
+              // }
+              // // console.log(this.nickName)
             }else{
               this.tejiaList=[];
             }
